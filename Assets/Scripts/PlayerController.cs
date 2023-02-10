@@ -76,7 +76,7 @@ public class PlayerController : MonoBehaviour
 
         if (isGrounded)
         {
-            rb.AddForce(new Vector3(0.0f, 5.0f, 0.0f), ForceMode.Impulse);
+            rb.AddForce(new Vector3(0.0f, 10.0f, 0.0f), ForceMode.Impulse);
                isGrounded = false;
         }
 
