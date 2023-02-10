@@ -5,7 +5,8 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     Rigidbody rb;
-    public Camera cam;
+    GameObject cam;
+    Camera camCam;
 
     public float speed;
     float speedConstant;
@@ -16,8 +17,11 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        cam = transform.GetChild(0).gameObject;
         isGrounded = false;
         speedConstant = speed;
+        camCam = cam.GetComponent<Camera>();
+        
     }
 
 
@@ -36,10 +40,10 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKey(KeyCode.LeftShift))
         {
             speed += speed * 0.6f;
-            cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, 50, Time.deltaTime * 10);
+            camCam.fieldOfView = Mathf.Lerp(camCam.fieldOfView, 50, Time.deltaTime * 10);
         }
         else
-            cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, 60, Time.deltaTime * 10); ;
+            camCam.fieldOfView = Mathf.Lerp(camCam.fieldOfView, 60, Time.deltaTime * 10); ;
 
 
         if (Input.GetKey("w") || Input.GetKey("up"))
@@ -67,5 +71,11 @@ public class PlayerController : MonoBehaviour
                isGrounded = false;
         }
 
+    }
+
+    public void RecenterCamera(float yRotation = 0)
+    {
+        transform.rotation = Quaternion.Euler(0, yRotation, 0);
+        cam.GetComponent<CameraController>().xRotation = 0;
     }
 }

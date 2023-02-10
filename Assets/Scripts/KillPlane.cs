@@ -6,7 +6,9 @@ public class KillPlane : MonoBehaviour
 {
 
     public Transform player;
+    public PlayerController controller;
     public Vector3 respawnPoint;
+    public float yRotation;
 
     private void Start()
     {
@@ -15,6 +17,8 @@ public class KillPlane : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log(yRotation);
+        controller.RecenterCamera(yRotation);
         player.position = respawnPoint;
     }
 }
