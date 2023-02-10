@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
 
 public class PlayerController : MonoBehaviour
@@ -27,6 +26,7 @@ public class PlayerController : MonoBehaviour
         isGrounded = false;
         speedConstant = speed;
         camCam = cam.GetComponent<Camera>();
+        coins = 0;
         
     }
 
@@ -39,7 +39,18 @@ public class PlayerController : MonoBehaviour
             if (Physics.Raycast(new Vector3(transform.position.x, transform.position.y - 0.99f, transform.position.z), Vector3.down, 0.02f))
                 isGrounded = true;
 
-
+        if (Input.GetKeyDown("e"))
+        {
+            RaycastHit hit;
+            if (Physics.Raycast(cam.transform.position, new Vector3(cam.transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z), out hit, 3))
+            {
+                if (hit.collider.CompareTag("Cashdoor") && hit.collider.transform.GetComponent<CashDoor>().coinAmount <= coins)
+                {
+                    coins -= hit.collider.transform.GetComponent<CashDoor>().coinAmount;
+                    GameObject.Destroy(hit.collider.gameObject);
+                }
+            }
+        }
     }
 
     // Update is called once per frame
