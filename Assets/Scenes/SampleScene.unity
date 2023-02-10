@@ -10754,7 +10754,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36c144033e1da8945932a4271149a140, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mouseSensitivity: 500
+  mouseSensitivity: 100
   playerBody: {fileID: 313846303}
   xRotation: 0
 --- !u!43 &966159369
@@ -11357,8 +11357,8 @@ Transform:
   - {fileID: 1966690279}
   - {fileID: 1967017456}
   - {fileID: 1375628742}
-  - {fileID: 1917576847}
   - {fileID: 1897804598}
+  - {fileID: 1917576847}
   - {fileID: 819103436}
   - {fileID: 1406012162}
   m_Father: {fileID: 2084645480}
