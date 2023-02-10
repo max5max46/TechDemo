@@ -9,8 +9,11 @@ public class Checkpoint : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        killPlane.respawnPoint = respawnObject.transform.position;
-        killPlane.yRotation = transform.parent.rotation.eulerAngles.y;
-        gameObject.SetActive(false);
+        if (other.gameObject.CompareTag("Player"))
+        {
+            killPlane.respawnPoint = respawnObject.transform.position;
+            killPlane.yRotation = transform.parent.rotation.eulerAngles.y;
+            gameObject.SetActive(false);
+        }
     }
 }

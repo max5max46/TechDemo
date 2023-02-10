@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
@@ -8,8 +10,12 @@ public class PlayerController : MonoBehaviour
     GameObject cam;
     Camera camCam;
 
+    public TextMeshProUGUI coinCountText;
+
     public float speed;
     float speedConstant;
+
+    public int coins;
 
     bool isGrounded;
 
@@ -27,10 +33,13 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        coinCountText.text = coins.ToString();
 
         if (Input.GetKeyDown("space"))
             if (Physics.Raycast(new Vector3(transform.position.x, transform.position.y - 0.99f, transform.position.z), Vector3.down, 0.02f))
                 isGrounded = true;
+
+
     }
 
     // Update is called once per frame
@@ -40,7 +49,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKey(KeyCode.LeftShift))
         {
             speed += speed * 0.6f;
-            camCam.fieldOfView = Mathf.Lerp(camCam.fieldOfView, 50, Time.deltaTime * 10);
+            camCam.fieldOfView = Mathf.Lerp(camCam.fieldOfView, 55, Time.deltaTime * 10);
         }
         else
             camCam.fieldOfView = Mathf.Lerp(camCam.fieldOfView, 60, Time.deltaTime * 10); ;

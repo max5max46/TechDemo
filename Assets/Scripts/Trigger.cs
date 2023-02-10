@@ -8,11 +8,17 @@ public class Trigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        insideTrigger = true;
+        if (other.gameObject.CompareTag("Player"))
+        {
+            insideTrigger = true;
+        }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        insideTrigger = false;
+        if (other.gameObject.CompareTag("Player"))
+        {
+            insideTrigger = false;
+        }
     }
 }

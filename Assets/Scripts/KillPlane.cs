@@ -17,8 +17,10 @@ public class KillPlane : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(yRotation);
-        controller.RecenterCamera(yRotation);
-        player.position = respawnPoint;
+        if (other.gameObject.CompareTag("Player"))
+        {
+            controller.RecenterCamera(yRotation);
+            player.position = respawnPoint;
+        }
     }
 }

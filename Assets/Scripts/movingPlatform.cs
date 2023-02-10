@@ -42,12 +42,18 @@ public class movingPlatform : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        collision.transform.parent = transform;
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            collision.transform.parent = transform;
+        }
     }
 
     private void OnCollisionExit(Collision collision)
     {
-        collision.transform.parent = null;
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            collision.transform.parent = null;
+        }
     }
 
 }
