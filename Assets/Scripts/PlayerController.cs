@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
 
     RaycastHit hit;
 
+    public TextMeshProUGUI cursorText;
     public TextMeshProUGUI coinCountText;
     public int coins;
 
@@ -35,6 +36,8 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        cursorText.text = "";
+
         didPlayerRaycastHit = false;
 
         if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, 3, ~6))
@@ -50,6 +53,18 @@ public class PlayerController : MonoBehaviour
         {
             coins -= hit.collider.transform.GetComponent<CashDoor>().coinAmount;
             GameObject.Destroy(hit.collider.gameObject);
+        }
+
+        if (didPlayerRaycastHit && hit.collider.CompareTag("Cashdoor"))
+        {
+            if (hit.collider.transform.GetComponent<CashDoor>().coinAmount <= coins)
+            {
+                cursorText.text = "Press (E) to open";
+            }
+            else
+            {
+                cursorText.text = "You don't have enough coins yet";
+            }
         }
     }
 
