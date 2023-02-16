@@ -19,7 +19,7 @@ public class CoinCollect : MonoBehaviour
         {
             player = other.gameObject.GetComponent<PlayerController>();
             player.coins++;
-            GameObject.Destroy(gameObject);
+            GameObject.Destroy(transform.parent.gameObject);
         }
     }
 }
