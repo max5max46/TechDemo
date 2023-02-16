@@ -6,26 +6,28 @@ using TMPro;
 public class PlayerController : MonoBehaviour
 {
     Rigidbody rb;
-    GameObject cam;
-    Camera camCam;
+    GameObject playerCamera;
+    Camera pCamComponent;
+
+    RaycastHit hit;
 
     public TextMeshProUGUI coinCountText;
+    public int coins;
 
     public float speed;
     float speedConstant;
 
-    public int coins;
-
     bool isGrounded;
+    bool didPlayerRaycastHit;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        cam = transform.GetChild(0).gameObject;
+        playerCamera = transform.GetChild(0).gameObject;
         isGrounded = false;
         speedConstant = speed;
-        camCam = cam.GetComponent<Camera>();
+        pCamComponent = playerCamera.GetComponent<Camera>();
         coins = 0;
         
     }
@@ -33,23 +35,21 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        didPlayerRaycastHit = false;
+
+        if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, 3, ~6))
+            didPlayerRaycastHit = true;
+
         coinCountText.text = coins.ToString();
 
         if (Input.GetKeyDown("space"))
             if (Physics.Raycast(new Vector3(transform.position.x, transform.position.y - 0.99f, transform.position.z), Vector3.down, 0.02f))
                 isGrounded = true;
 
-        if (Input.GetKeyDown("e"))
+        if (Input.GetKey("e") && didPlayerRaycastHit && hit.collider.CompareTag("Cashdoor") && hit.collider.transform.GetComponent<CashDoor>().coinAmount <= coins)
         {
-            RaycastHit hit;
-            if (Physics.Raycast(cam.transform.position, new Vector3(cam.transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z), out hit, 3))
-            {
-                if (hit.collider.CompareTag("Cashdoor") && hit.collider.transform.GetComponent<CashDoor>().coinAmount <= coins)
-                {
-                    coins -= hit.collider.transform.GetComponent<CashDoor>().coinAmount;
-                    GameObject.Destroy(hit.collider.gameObject);
-                }
-            }
+            coins -= hit.collider.transform.GetComponent<CashDoor>().coinAmount;
+            GameObject.Destroy(hit.collider.gameObject);
         }
     }
 
@@ -60,10 +60,10 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKey(KeyCode.LeftShift))
         {
             speed += speed * 0.6f;
-            camCam.fieldOfView = Mathf.Lerp(camCam.fieldOfView, 55, Time.deltaTime * 10);
+            pCamComponent.fieldOfView = Mathf.Lerp(pCamComponent.fieldOfView, 55, Time.deltaTime * 10);
         }
         else
-            camCam.fieldOfView = Mathf.Lerp(camCam.fieldOfView, 60, Time.deltaTime * 10); ;
+            pCamComponent.fieldOfView = Mathf.Lerp(pCamComponent.fieldOfView, 60, Time.deltaTime * 10); ;
 
 
         if (Input.GetKey("w") || Input.GetKey("up"))
@@ -96,6 +96,6 @@ public class PlayerController : MonoBehaviour
     public void RecenterCamera(float yRotation = 0)
     {
         transform.rotation = Quaternion.Euler(0, yRotation, 0);
-        cam.GetComponent<CameraController>().xRotation = 0;
+        playerCamera.GetComponent<CameraController>().xRotation = 0;
     }
 }

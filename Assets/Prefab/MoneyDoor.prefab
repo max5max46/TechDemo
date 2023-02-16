@@ -111,7 +111,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8908d29f8f4fd1b439c57412d6218f7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coinAmount: 15
+  coinAmount: 1
 --- !u!1 &7915352404125499048
 GameObject:
   m_ObjectHideFlags: 0
@@ -123,7 +123,7 @@ GameObject:
   - component: {fileID: 7915352404125499049}
   - component: {fileID: 7915352404125499063}
   - component: {fileID: 7915352404125499062}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: DoorText
   m_TagString: Untagged
   m_Icon: {fileID: 0}

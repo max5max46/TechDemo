@@ -7,12 +7,11 @@ using TMPro;
 public class CashDoor : MonoBehaviour
 {
     public int coinAmount;
-    TextMeshPro coinAmountText;
+    //public TextMeshPro coinAmountText;
 
     // Start is called before the first frame update
     void Start()
     {
-        coinAmountText = transform.GetChild(0).GetComponent<TextMeshPro>();
-        coinAmountText.text = "Pay " + coinAmount + " Coins to Open";
+        //coinAmountText.text = "Pay " + coinAmount + " Coins to Open";
     }
 }
