@@ -11,24 +11,25 @@ public class coinRespawner : MonoBehaviour
     void Start()
     {
         coin = transform.GetChild(0).gameObject;
-        timer = 0;
+        Instantiate(coin, transform).transform.position = new Vector3(transform.position.x, transform.position.y + 1.3f, transform.position.z);
+        transform.GetChild(1).gameObject.SetActive(true);
+        timer = 2;
     }
 
     // Update is called once per frame
     void Update()
     {
-
-
-        if (transform.childCount == 1)
+        if (transform.GetChild(1).childCount == 0)
         {
             timer -= Time.deltaTime;
             if (timer <= 0)
             {
-                Debug.Log("Test");
+                Destroy(transform.GetChild(1).gameObject);
                 timer = 2;
-                GameObject.Instantiate(coin, transform).transform.position = new Vector3(transform.position.x, transform.position.y + 1.3f, transform.position.z);
-                transform.GetChild(1).gameObject.SetActive(true);
+                Instantiate(coin, transform).transform.position = new Vector3(transform.position.x, transform.position.y + 1.3f, transform.position.z);
+                
             }
         }
+        transform.GetChild(1).gameObject.SetActive(true);
     }
 }

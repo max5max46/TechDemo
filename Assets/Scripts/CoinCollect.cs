@@ -13,13 +13,15 @@ public class CoinCollect : MonoBehaviour
             transform.Rotate(new Vector3(0, 0, 60) * Time.deltaTime);
     }
 
-    private void OnCollisionEnter(Collision other)
+    private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
             player = other.gameObject.GetComponent<PlayerController>();
             player.coins++;
-            GameObject.Destroy(transform.parent.gameObject);
+            transform.parent.GetComponent<AudioSource>().Play();
+            Destroy(transform.parent.transform.GetChild(0).gameObject);
+            Destroy(gameObject);
         }
     }
 }
