@@ -35838,6 +35838,10 @@ PrefabInstance:
       propertyPath: coinCountText
       value: 
       objectReference: {fileID: 584692479}
+    - target: {fileID: 5947590532440817541, guid: 73935a8c2a227484d9b999bd17b709ee, type: 3}
+      propertyPath: mouseSensitivity
+      value: 200
+      objectReference: {fileID: 0}
     - target: {fileID: 5947590532787189985, guid: 73935a8c2a227484d9b999bd17b709ee, type: 3}
       propertyPath: m_RootOrder
       value: 4
